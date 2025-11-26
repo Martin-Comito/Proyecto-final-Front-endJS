@@ -21,17 +21,16 @@ async function obtenerProductos() {
         const respuesta = await fetch(API_URL);
         const data = await respuesta.json();
         
-        // Filtramos para electrónica y joyas (para tener variedad tecno/accesorios)
-        const productosFiltrados = data.filter(p => p.category === 'electronics' || p.category === 'jewelery');
+        // CORRECCIÓN: Quitamos 'jewelery'. Ahora solo pasa 'electronics'.
+        const productosFiltrados = data.filter(p => p.category === 'electronics');
         
-        renderizarProductos(productosFiltrados.length > 0 ? productosFiltrados : data);
+        renderizarProductos(productosFiltrados);
         
     } catch (error) {
         console.error(error);
-        contenedorProductos.innerHTML = '<p style="text-align:center; color:red;">Error al cargar productos. Intenta recargar la página.</p>';
+        contenedorProductos.innerHTML = '<p style="text-align:center; color:red;">Error al cargar productos.</p>';
     }
 }
-
 // 2. Renderizado de Productos (Index)
 function renderizarProductos(productos) {
     if (!contenedorProductos) return;
