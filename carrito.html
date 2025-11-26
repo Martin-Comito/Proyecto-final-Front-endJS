@@ -31,11 +31,42 @@
     </header>
 
     <main>
-        <section style="text-align: center; padding: 50px;">
-            <h1>Carrito de Compras</h1>
-            <p>Aquí se mostrarían los productos añadidos al carrito y el total de la compra.</p>
-            <p>La lógica avanzada de carrito se implementaría con **JavaScript**.</p>
-            <p><a href="index.html">Volver a la Página Principal</a></p>
+        <section style="padding: 40px; max-width: 1000px; margin: 0 auto;">
+            <h1 style="text-align: center; margin-bottom: 20px;">Tu Carrito de Compras</h1>
+            
+            <table style="width: 100%; border-collapse: collapse; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
+                <thead>
+                    <tr style="background-color: #2c3e50; color: white;">
+                        <th style="padding: 15px;">Imagen</th>
+                        <th>Producto</th>
+                        <th>Precio</th>
+                        <th>Cant.</th>
+                        <th>Subtotal</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                
+                <tbody id="carrito-items" style="text-align: center; background: white; border-bottom: 1px solid #ccc;">
+                    <tr><td colspan="6" style="padding: 20px;">Cargando tu carrito...</td></tr>
+                </tbody>
+            </table>
+
+            <div style="text-align: right; margin-top: 30px;">
+                <h2>Total: <span id="precio-total">$0.00</span></h2>
+                
+                <div style="margin-top: 20px;">
+                    <button id="vaciar-carrito" style="padding: 10px 20px; background-color: #e74c3c; color: white; border: none; cursor: pointer; border-radius: 5px; margin-right: 10px;">
+                        Vaciar Carrito
+                    </button>
+                    <button id="finalizar-compra" style="padding: 10px 20px; background-color: #27ae60; color: white; border: none; cursor: pointer; border-radius: 5px;">
+                        Finalizar Compra
+                    </button>
+                </div>
+            </div>
+            
+            <p style="text-align: center; margin-top: 30px;">
+                <a href="index.html" style="color: #3498db; text-decoration: none; font-weight: bold;">← Seguir comprando</a>
+            </p>
         </section>
     </main>
 
@@ -46,6 +77,8 @@
             <a href="#"><i class="fab fa-instagram"></i></a>
         </div>
     </footer>
+
+    <script src="js/script.js"></script>
 
 </body>
 </html>
