@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Tecno Comito: Tu tienda de electrónica con las mejores ofertas en tecnología.">
+    <title>Tecno Comito - Inicio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header class="main-header">
+        <div class="brand">
+            <img src="img/logo.png" alt="Logo Tecno Comito" class="logo">
+        </div>
+        <nav class="main-nav">
+            <ul class="nav-list">
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+            </ul>
+        </nav>
+        <a href="carrito.html" class="cart-icon" aria-label="Ir al carrito">
+            <i class="fas fa-shopping-cart"></i> <span id="cart-count">0</span>
+        </a>
+    </header>
+
+    <main>
+        <section class="hero">
+            <h1>Bienvenidos a Tecno Comito</h1>
+            <p>Tecnología de punta al alcance de un click.</p>
+        </section>
+
+        <section id="productos">
+            <h2>Nuestros Productos</h2>
+            <p id="loader" style="text-align: center;">Cargando catálogo...</p>
+            
+            <div class="productos-contenedor" id="contenedor-productos"></div>
+        </section>
+
+        <section id="reseñas">
+            <h2>Opiniones</h2>
+            <div class="reseñas-contenedor">
+                <article class="reseña-card">
+                    <h3>Ana G.</h3>
+                    <p>⭐⭐⭐⭐⭐ "Excelente servicio y rapidez."</p>
+                </article>
+                <article class="reseña-card">
+                    <h3>Carlos M.</h3>
+                    <p>⭐⭐⭐⭐⭐ "Los precios son imbatibles."</p>
+                </article>
+                <article class="reseña-card">
+                    <h3>Sofia L.</h3>
+                    <p>⭐⭐⭐⭐ "Muy buena atención post-venta."</p>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Tecno Comito. Desarrollo Front-End.</p>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
