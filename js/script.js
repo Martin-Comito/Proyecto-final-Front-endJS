@@ -1,10 +1,9 @@
 /* ================= CONFIGURACIÓN ================= */
-// Usamos la API general para asegurar que traiga productos
 const API_URL = 'https://fakestoreapi.com/products'; 
 
 let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
 
-// Elementos del DOM (Seleccionamos con cuidado)
+// Elementos del DOM
 const contenedorProductos = document.getElementById('contenedor-productos');
 const contenedorCarrito = document.getElementById('carrito-items');
 const precioTotalElement = document.getElementById('precio-total');
@@ -14,18 +13,15 @@ const cartCount = document.getElementById('cart-count');
 
 // 1. Consumo de API
 async function obtenerProductos() {
-    // Si no estamos en el index (no existe el contenedor), salimos para no dar error
     if (!contenedorProductos) return;
 
     try {
-        // Mostramos mensaje de carga si es posible
         contenedorProductos.innerHTML = '<p style="text-align:center; width:100%">Cargando productos...</p>';
 
         const respuesta = await fetch(API_URL);
         const data = await respuesta.json();
         
-        // Filtramos solo electrónica para que coincida con tu tienda (Opcional)
-        // Si quieres todos los productos, borra la línea de abajo y usa 'data' directo en renderizar
+        // Filtramos para electrónica y joyas (para tener variedad tecno/accesorios)
         const productosFiltrados = data.filter(p => p.category === 'electronics' || p.category === 'jewelery');
         
         renderizarProductos(productosFiltrados.length > 0 ? productosFiltrados : data);
@@ -40,15 +36,15 @@ async function obtenerProductos() {
 function renderizarProductos(productos) {
     if (!contenedorProductos) return;
     
-    contenedorProductos.innerHTML = ''; // Limpiar mensaje de carga
+    contenedorProductos.innerHTML = '';
     
     productos.forEach(prod => {
-        const div = document.createElement('article'); // Usamos article como en tu diseño
+        const div = document.createElement('article');
         div.classList.add('producto-card');
         
-        // Acortar título para que no rompa el diseño
         const tituloCorto = prod.title.length > 20 ? prod.title.substring(0, 20) + "..." : prod.title;
 
+        // NOTA: Aquí pasamos 'prod.price' (API) a la función agregar
         div.innerHTML = `
             <img src="${prod.image}" alt="${prod.title}" style="height: 150px; object-fit: contain; margin-bottom: 10px;">
             <h3 class="producto-nombre">${tituloCorto}</h3>
@@ -61,13 +57,17 @@ function renderizarProductos(productos) {
     });
 }
 
-// 3. Agregar al Carrito
+// 3. Agregar al Carrito (CORREGIDO)
 window.agregarAlCarrito = (id, titulo, precio, imagen) => {
+    // Aseguramos que el precio sea un número
+    const precioNumerico = parseFloat(precio);
+
     const existe = carrito.find(item => item.id === id);
     if (existe) {
         existe.cantidad++;
     } else {
-        carrito.push({ id, titulo, precio, imagen, cantidad: 1 });
+        // Guardamos siempre como 'precio' (español) y aseguramos que sea número
+        carrito.push({ id, titulo, precio: precioNumerico, imagen, cantidad: 1 });
     }
     actualizarCarrito();
     alert("¡Producto agregado al carrito!");
@@ -77,10 +77,10 @@ window.agregarAlCarrito = (id, titulo, precio, imagen) => {
 function actualizarCarrito() {
     localStorage.setItem('carrito', JSON.stringify(carrito));
     actualizarContador();
-    renderizarTablaCarrito(); // Solo funcionará si estamos en carrito.html
+    renderizarTablaCarrito();
 }
 
-// 5. Actualizar el numerito rojo del header
+// 5. Actualizar contador del header
 function actualizarContador() {
     if (cartCount) {
         const totalItems = carrito.reduce((acc, item) => acc + item.cantidad, 0);
@@ -88,9 +88,9 @@ function actualizarContador() {
     }
 }
 
-// 6. Lógica de página Carrito (carrito.html)
+// 6. Lógica de página Carrito (CORREGIDO EL CÁLCULO)
 function renderizarTablaCarrito() {
-    if (!contenedorCarrito) return; // Si no existe la tabla, no hacemos nada
+    if (!contenedorCarrito) return;
 
     contenedorCarrito.innerHTML = '';
     let total = 0;
@@ -102,14 +102,17 @@ function renderizarTablaCarrito() {
     }
 
     carrito.forEach(item => {
-        const subtotal = item.precio * item.cantidad;
+        // CORRECCIÓN: Aseguramos que 'item.precio' sea un número antes de multiplicar
+        const precioNum = parseFloat(item.precio);
+        const subtotal = precioNum * item.cantidad;
+        
         total += subtotal;
 
         const tr = document.createElement('tr');
         tr.innerHTML = `
             <td><img src="${item.imagen}" width="50"></td>
             <td>${item.titulo}</td>
-            <td>$${item.precio}</td>
+            <td>$${precioNum.toFixed(2)}</td>
             <td>
                 <button onclick="cambiarCantidad(${item.id}, -1)">-</button>
                 <span style="margin:0 10px">${item.cantidad}</span>
@@ -121,10 +124,11 @@ function renderizarTablaCarrito() {
         contenedorCarrito.appendChild(tr);
     });
 
+    // CORRECCIÓN FINAL: Mostramos el total con 2 decimales siempre
     if(precioTotalElement) precioTotalElement.innerText = `$${total.toFixed(2)}`;
 }
 
-// Funciones auxiliares del carrito
+// Funciones auxiliares
 window.cambiarCantidad = (id, cambio) => {
     const item = carrito.find(item => item.id === id);
     if (item) {
@@ -142,7 +146,6 @@ window.eliminarItem = (id) => {
     actualizarCarrito();
 };
 
-// Botón Vaciar
 const btnVaciar = document.getElementById('vaciar-carrito');
 if (btnVaciar) {
     btnVaciar.addEventListener('click', () => {
@@ -151,7 +154,6 @@ if (btnVaciar) {
     });
 }
 
-// Botón Finalizar
 const btnFinalizar = document.getElementById('finalizar-compra');
 if (btnFinalizar) {
     btnFinalizar.addEventListener('click', () => {
