@@ -18,7 +18,7 @@
     <header class="main-header">
         <img src="img/logo.png" alt="Logo de la Empresa" class="logo" width="100">
         <nav class="main-nav">
-            <ul class="nav-list">
+            <ul class="nav-list" id="menu-navegacion">
                 <li><a href="index.html">Inicio</a></li>
                 <li><a href="login.html">Login</a></li>
                 <li><a href="registro.html">Registro</a></li>
@@ -33,14 +33,14 @@
     <main>
         <section id="registro-main" class="contacto" style="text-align: center; padding: 50px;">
             <h1>Crear Cuenta</h1>
-            
-            <form>
-                <input type="text" placeholder="Nombre Completo" required>
-                <input type="email" placeholder="Correo Electrónico" required>
-                <input type="password" placeholder="Contraseña" required>
+    
+                <form id="form-registro">
+                <input type="text" id="reg-nombre" placeholder="Nombre Completo" required>
+                <input type="email" id="reg-email" placeholder="Correo Electrónico" required>
+                <input type="password" id="reg-pass" placeholder="Contraseña" required>
                 <button type="submit">Registrarse</button>
             </form>
-            
+    
             <p>¿Ya tienes cuenta? <a href="login.html">Inicia Sesión</a>.</p>
         </section>
     </main>
