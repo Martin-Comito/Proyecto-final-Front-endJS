@@ -177,86 +177,77 @@ document.addEventListener('DOMContentLoaded', () => {
    7. GESTIÓN DE USUARIOS (LOGIN/REGISTRO)
    ========================================= */
 
-// Función para Registrar Usuario (Guardar en LocalStorage)
+// Función para Registrar Usuario
 function registrarUsuario(e) {
-    e.preventDefault(); // Evitar que el formulario recargue la página
-
+    e.preventDefault();
     const nombre = document.getElementById('reg-nombre').value;
     const email = document.getElementById('reg-email').value;
     const pass = document.getElementById('reg-pass').value;
 
     if (!nombre || !email || !pass) {
-        alert("Por favor completa todos los campos.");
+        alert("Completa todos los campos");
         return;
     }
-
-    // Guardamos el usuario como un objeto en LocalStorage
-    // NOTA: En un proyecto real, NUNCA guardar contraseñas en LocalStorage. Esto es solo educativo.
+    // Guardamos usuario en memoria
     const usuario = { nombre, email, pass };
     localStorage.setItem('usuarioRegistrado', JSON.stringify(usuario));
-
-    alert("¡Registro exitoso! Ahora puedes iniciar sesión.");
+    alert("¡Registro exitoso! Ahora inicia sesión.");
     window.location.href = 'login.html';
 }
 
 // Función para Iniciar Sesión
 function iniciarSesion(e) {
     e.preventDefault();
-
     const email = document.getElementById('login-email').value;
     const pass = document.getElementById('login-pass').value;
-
+    
+    // Recuperamos el usuario registrado
     const usuarioGuardado = JSON.parse(localStorage.getItem('usuarioRegistrado'));
 
     if (usuarioGuardado && usuarioGuardado.email === email && usuarioGuardado.pass === pass) {
-        // Guardamos una "bandera" de que la sesión está activa
+        // Guardamos la sesión activa
         localStorage.setItem('sesionActiva', JSON.stringify(usuarioGuardado));
-        alert(`¡Bienvenido de nuevo, ${usuarioGuardado.nombre}!`);
+        alert("¡Bienvenido/a " + usuarioGuardado.nombre + "!");
         window.location.href = 'index.html';
     } else {
-        alert("Correo o contraseña incorrectos (o no estás registrado).");
+        alert("Datos incorrectos o no estás registrado.");
     }
 }
 
 // Función para Cerrar Sesión
 window.cerrarSesion = () => {
     localStorage.removeItem('sesionActiva');
-    alert("Has cerrado sesión.");
-    window.location.href = 'index.html';
+    location.reload(); // Recargamos para actualizar menú
 };
 
-// Función para actualizar el Menú (Navbar)
-function actualizarMenu() {
+// Función para mostrar nombre en el menú
+function chequearSesion() {
     const sesion = JSON.parse(localStorage.getItem('sesionActiva'));
-    const menu = document.getElementById('menu-navegacion');
+    const menu = document.querySelector('.nav-list'); // Buscamos la lista del menú
 
     if (sesion && menu) {
-        // Si hay sesión, cambiamos el menú
+        // Si hay sesión, cambiamos los botones de Login/Registro por el nombre
         menu.innerHTML = `
             <li><a href="index.html">Inicio</a></li>
             <li><a href="contacto.html">Contacto</a></li>
-            <li style="color: white; font-weight: bold; margin-left: 10px;">Hola, ${sesion.nombre}</li>
-            <li><a href="#" onclick="cerrarSesion()" style="color: #e74c3c;">(Salir)</a></li>
+            <li style="display: flex; align-items: center;">
+                <span style="color: white; font-weight: bold; margin-right: 10px;">Hola, ${sesion.nombre}</span>
+                <button onclick="cerrarSesion()" style="background:red; color:white; border:none; padding: 2px 5px; cursor:pointer; font-size: 12px; border-radius:3px;">Salir</button>
+            </li>
         `;
     }
 }
 
-/* ================= INICIALIZACIÓN EXTRA ================= */
-// Agregamos esto al evento DOMContentLoaded existente
+// Inicialización de eventos
 document.addEventListener('DOMContentLoaded', () => {
-    // ... (aquí ya tenías obtenerProductos, etc.) ...
-    
-    actualizarMenu(); // Chequea si hay usuario logueado al cargar
-    
-    // Detectar si estamos en la página de Registro
-    const formRegistro = document.getElementById('form-registro');
-    if (formRegistro) {
-        formRegistro.addEventListener('submit', registrarUsuario);
-    }
+    // Chequear si ya estamos logueados
+    chequearSesion();
 
-    // Detectar si estamos en la página de Login
+    // Evento para formulario de Registro
+    const formRegistro = document.getElementById('form-registro');
+    if (formRegistro) formRegistro.addEventListener('submit', registrarUsuario);
+
+    // Evento para formulario de Login
     const formLogin = document.getElementById('form-login');
-    if (formLogin) {
-        formLogin.addEventListener('submit', iniciarSesion);
-    }
+    if (formLogin) formLogin.addEventListener('submit', iniciarSesion);
 });
