@@ -1,43 +1,54 @@
-# Proyecto Final Front-End: Tecno Comito
+# Proyecto Final Front-End-Js: Tecno Comito 🛒
 
-Este repositorio contiene el código fuente de mi Proyecto Integrador Final para el curso de **Front-End Developer** del programa **Talento Tech**, impulsado por el Gobierno de la Ciudad de Buenos Aires.
+¡Hola! Soy **[Martin Ezequiel Comito]** y este repositorio es la entrega final de mi recorrido por el curso de **Front-End ** en **Talento Tech** (Gobierno de la Ciudad de Buenos Aires).
 
-Este proyecto representa la culminación del trayecto formativo, donde se integran todos los conocimientos adquiridos para desarrollar una aplicación web funcional, dinámica y responsiva.
+Mi objetivo con "Tecno Comito" fue desafiarme a mí mismo: no quería entregar una simple página estática ("maquetada"), sino construir una **aplicación web real** que funcione, responda y recuerde los datos del usuario.
 
-**Link al proyecto desplegado:** [https://github.com/Martin-Comito/Proyecto-final-Front-endJS]
-
----
-
-## Descripción del Proyecto
-
-"Tecno Comito" es una simulación de un e-commerce dedicado a la venta de productos electrónicos. El objetivo principal fue desarrollar una Single Page Application (SPA) que no dependa de archivos estáticos para su contenido, sino que opere con datos dinámicos y persistencia del lado del cliente.
-
-El sitio pasa de ser una maquetación visual a una aplicación funcional capaz de gestionar un carrito de compras y consumir datos externos, simulando el entorno real de un desarrollo profesional.
-
-## Tecnologías Implementadas
-
-Para la realización de este proyecto utilicé el siguiente stack tecnológico, siguiendo las mejores prácticas aprendidas en el curso:
-
-* **HTML5 Semántico:** Estructura optimizada utilizando etiquetas de sección (`header`, `nav`, `main`, `footer`) para garantizar un código limpio, organizado y accesible.
-* **CSS3:**
-    * Diseño Responsivo (Mobile First) para asegurar la correcta visualización en dispositivos móviles y de escritorio.
-    * Implementación de **Flexbox** y **CSS Grid** para la distribución de elementos y layouts complejos.
-* **JavaScript (ES6+):**
-    * **Fetch API & Asincronía:** Consumo de datos desde una API externa (FakeStoreAPI) para poblar el catálogo de productos en tiempo real.
-    * **DOM Scripting:** Generación dinámica de tarjetas de productos y manipulación de la interfaz de usuario.
-    * **LocalStorage:** Implementación de persistencia de datos para mantener el estado del carrito de compras entre sesiones.
-* **Control de Versiones:** Uso de Git y GitHub para la gestión del código y despliegue en GitHub Pages.
-
-## Funcionalidades Principales
-
-1.  **Catálogo Dinámico:** Los productos se obtienen mediante una petición asíncrona a una API REST, eliminando la necesidad de hardcodear contenido en el HTML.
-2.  **Carrito de Compras Funcional:** Sistema completo para agregar productos, modificar cantidades y eliminar ítems. El total se calcula automáticamente según las interacciones del usuario.
-3.  **Persistencia de Sesión:** El carrito utiliza `localStorage` del navegador, permitiendo que el usuario cierre la página y mantenga sus productos seleccionados al regresar.
-4.  **Contacto:** Formulario validado con JavaScript e integrado con el servicio Formspree para la gestión de envíos.
+**[https://martin-comito.github.io/Proyecto-final-Front-endJS/index.html](https://martin-comito.github.io/Proyecto-final-Front-endJS/)**
 
 ---
 
-**Autor:** Martin Ezequiel Comito
-Proyecto Final - Curso Front-End
-Talento Tech - Gobierno de la Ciudad de Buenos Aires
-Año: 2025
+## ¿De qué trata mi proyecto?
+
+Desarrollé un simulador de e-commerce de tecnología. La idea principal fue resolver los problemas típicos de una tienda online desde el lado del cliente (Front-End), sin depender de un servidor externo para la lógica básica.
+
+En lugar de escribir los productos uno por uno en el código (lo cual sería imposible de mantener), conecté mi página a una API externa para que el catálogo se genere solo.
+
+## ¿Cómo lo construí?
+
+Para este desarrollo, integré todas las herramientas que vimos en el curso:
+
+* **HTML5:** Me enfoqué en que el código fuera semántico y ordenado (`header`, `main`, `footer`), pensando en que sea fácil de leer por los navegadores.
+* **CSS3:** Diseñé el sitio pensando primero en el celular (**Mobile First**) y luego en escritorio. Usé **Flexbox** para alinear los menús y **Grid** para que las reseñas se vean bien organizadas.
+* **JavaScript (El cerebro del sitio):** Aquí es donde puse más énfasis.
+    * Usé `async/await` y `fetch` para traer los datos de **FakeStoreAPI**.
+    * Manipulé el **DOM** para crear las tarjetas de productos y la tabla del carrito automáticamente.
+    * Implementé lógica matemática para que el carrito calcule subtotales y totales sin errores.
+
+## Funcionalidades que desarrollé
+
+Lo que hace especial a este proyecto son las funcionalidades dinámicas que logré implementar:
+
+### 1. Sistema de Usuarios (Login y Registro)
+Como no tenemos Backend, se me ocurrió usar el `localStorage` del navegador para simular una base de datos.
+* **Registro:** Puedes crear un usuario y contraseña, y el sitio los "recuerda".
+* **Sesión:** Si te logueas y cierras la página, al volver seguirás logueado y el menú te saludará por tu nombre.
+
+### 2. Carrito de Compras Persistente
+Me aseguré de que si un usuario agrega productos, no los pierda al recargar la página. Todo se guarda en la memoria local del navegador, permitiendo agregar, eliminar y modificar cantidades en tiempo real.
+
+### 3. Catálogo Dinámico
+Los productos no están "hardcodeados". Si la API actualiza una imagen o un precio, mi sitio se actualiza automáticamente.
+
+### 4. Contacto Real
+Conecté el formulario con **Formspree**, así que si alguien escribe un mensaje, me llega un correo de verdad.
+
+---
+
+### Nota sobre el aprendizaje
+*Soy consciente de que en un entorno profesional real, las contraseñas y usuarios deben manejarse en un servidor seguro y no en el navegador. Sin embargo, implementé esta solución para demostrar mi capacidad de manipular datos y lógica compleja con JavaScript puro.*
+
+---
+
+**Autor:** [Martin Ezequiel Comito]
+**Curso:** Talento Tech 2025
